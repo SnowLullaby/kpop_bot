@@ -1,10 +1,10 @@
 import logging
 import os
 import sys
-import psycopg2
 import telebot
 
 from src.main.resources import config
+from src.main.show_time_kpop_bot import handlers
 
 
 def get_token():
@@ -22,11 +22,9 @@ def get_token():
 
 
 def main():
-    # add path to config.py to sys.path
-    sys.path.append(os.path.join(os.path.dirname(__file__), '../../resources'))
     # connect bot
-    bot = telebot.TeleBot(get_token())
-    bot.polling(none_stop=True, interval=0)
+    token = get_token()
+    handlers.start_bot(token)
 
 
 if __name__ == "__main__":
@@ -35,22 +33,5 @@ if __name__ == "__main__":
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO, filename="py_log.log"
     )
     main()
-
-''' Подключаемся к базе
-conn = psycopg2.connect(dbname=, host=, user=, password=)
-conn.autocommit = True  # устанавливаем актокоммит
-print("Connection established")
-cursor = conn.cursor()
-# Fetch all rows from table
-cursor.execute("SELECT * FROM status;")
-rows = cursor.fetchall()
-
-# Print all rows
-for row in rows:
-    print(row)
-
-# Cleanup
-conn.commit()
-cursor.close()
-conn.close()
-'''
+    # add path to config.py to sys.path
+    sys.path.append(os.path.join(os.path.dirname(__file__), '../../resources'))
