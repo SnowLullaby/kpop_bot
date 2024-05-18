@@ -13,8 +13,7 @@ def start_bot(new_token):
             db.new_user(message.from_user.id)
             bot.send_message(message.chat.id, text.start(), parse_mode='HTML')
         if message.text == "/help":
-            db.new_user()
-            bot.send_message(message.chat.id, "Проверяем помощь" , parse_mode='HTML')
+            bot.send_message(message.chat.id, "Проверяем помощь", parse_mode='HTML')
 
     try:
         bot.polling(none_stop=True, interval=0)
