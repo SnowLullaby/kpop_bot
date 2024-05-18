@@ -26,7 +26,7 @@ def main():
     sys.path.append(os.path.join(os.path.dirname(__file__), '../../resources'))
     # connect bot
     bot = telebot.TeleBot(get_token())
-    //bot.polling(none_stop=True, interval=0)
+    bot.polling(none_stop=True, interval=0)
 
 
 if __name__ == "__main__":
