@@ -10,9 +10,10 @@ from src.main.resources import config
 def get_token():
     logging.info("Attempting to retrieve the bot token")
     try:
-        # Проверяем, задан ли токен
+        # check bot token
         if not config.token:
             raise ValueError("The token is not set in the configuration file.")
+        # return bot token
         logging.info("Bot token successfully retrieved")
         return config.token
     except Exception as e:
@@ -21,15 +22,15 @@ def get_token():
 
 
 def main():
-    # Добавляем путь к папке с config.py в sys.path
+    # add path to config.py to sys.path
     sys.path.append(os.path.join(os.path.dirname(__file__), '../../resources'))
-    # Подключаем бота
+    # connect bot
     bot = telebot.TeleBot(get_token())
     //bot.polling(none_stop=True, interval=0)
 
 
 if __name__ == "__main__":
-    # Настраиваем логирование
+    # logging settings
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO, filename="py_log.log"
     )
