@@ -20,8 +20,6 @@ def connection():
         # check settings
         if not config.dbname or not config.host or not config.user or not config.password:
             raise ValueError("The settings is not set in the configuration file.")
-        # return bot token
-        logging.info("db settings successfully retrieved")
     except Exception as e:
         logging.error(f"Failed to retrieve db settings: {e}")
         raise
@@ -31,7 +29,6 @@ def connection():
         conn = psycopg2.connect(dbname=config.dbname, host=config.host, user=config.user, password=config.password)
         conn.autocommit = True  # set autocommit
         cursor = conn.cursor()
-        logging.info("Connection established")
         return conn, cursor
     except Exception as e:
         logging.error(f"Connection failed: {e}")

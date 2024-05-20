@@ -11,20 +11,20 @@ def get_token():
     logging.info("Attempting to retrieve the bot token")
     try:
         # check bot token
-        if not config.token:
-            raise ValueError("The token is not set in the configuration file.")
+        if not config.token or not config.admins:
+            raise ValueError("The token ar admins are not set in the configuration file.")
         # return bot token
-        logging.info("Bot token successfully retrieved")
-        return config.token
+        logging.info("Bot token and admins list successfully retrieved")
+        return config.token, config.admins
     except Exception as e:
-        logging.error(f"Failed to retrieve bot token: {e}")
+        logging.error(f"Failed to retrieve bot token or admins list: {e}")
         raise
 
 
 def main():
     # connect bot
-    token = get_token()
-    handlers.start_bot(token)
+    token, admins_list = get_token()
+    handlers.start_bot(token, admins_list)
 
 
 if __name__ == "__main__":
