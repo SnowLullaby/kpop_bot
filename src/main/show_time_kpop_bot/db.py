@@ -38,3 +38,14 @@ def connection():
 def close(conn, cursor):
     cursor.close()
     conn.close()
+
+
+def get_current_choreo():
+    try:
+        conn, cursor = connection()
+        cursor.execute("SELECT group_name, song, start_time, end_time, link FROM choreo WHERE status = 7")
+        rows = cursor.fetchall()
+        close(conn, cursor)
+        return rows
+    except Exception as e:
+        logging.error(f"SQL error: {e}")

@@ -10,23 +10,23 @@ def start_bot(new_token, admins_list):
     @bot.message_handler(content_types=['text'])
     def get_text_messages(message):
         if message.text == "/start":
-            admin.start_fnk(bot, message.from_user.id, admins_list)
+            admin.start_fnk(bot, message.chat.id, message.from_user.id, admins_list)
 
         if message.text == "/help":
             bot.send_message(message.from_user.id, text.help_text(), parse_mode='HTML')
 
-        if message.text == "/update" or message.text == "Обновить данные":
-            admin.update_fnk(bot, message.from_user.id, admins_list)
+        if message.text == "/update" or message.text == "Что мы сейчас учим?":
+            admin.update_fnk(bot,  message.chat.id, message.from_user.id, admins_list)
 
-        if message.text == "/add" or message.text == "Добавить хореографию":
-            bot.send_message(message.from_user.id, "Для добавления хореографии", parse_mode='HTML')
+        if message.text == "/add" or message.text == "Предложить хорягу":
+            bot.send_message(message.from_user.id, "Что бы вы могли предложить свою хореографию", parse_mode='HTML')
 
-        @bot.callback_query_handler(func=lambda call: True)
-        def callback_worker(call):
-            if call.data == "/update":
-                admin.update_fnk(bot, message.from_user.id, admins_list)
-            elif call.data == "/add":
-                bot.send_message(message.from_user.id, "Тестируем добавление", parse_mode='HTML')
+    @bot.callback_query_handler(func=lambda call: True)
+    def callback_worker(call):
+        if call.data == "/update":
+            admin.update_fnk(bot, call.message.chat.id, call.message.from_user.id, admins_list)
+        #if call.data == "/show":
+        #    admin.update_fnk(bot, call.message.chat.id, call.message.from_user.id, admins_list)
 
     try:
         bot.polling(none_stop=True, interval=0)
