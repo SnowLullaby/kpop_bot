@@ -28,3 +28,12 @@ def start_keyboard():
     # key_show = types.InlineKeyboardButton(text='Уже выучили', callback_data='/show')
     keyboard.add(key_upd)
     return keyboard
+
+
+def show_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    key_all = types.InlineKeyboardButton(text='Все', callback_data='/show_all')
+    key_waiting = types.InlineKeyboardButton(text='Предложенные', callback_data='/show_waiting')
+    key_learned = types.InlineKeyboardButton(text='Выученные', callback_data='/show_learned')
+    keyboard.add(key_all, key_waiting, key_learned)
+    return keyboard

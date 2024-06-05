@@ -40,10 +40,11 @@ def close(conn, cursor):
     conn.close()
 
 
-def get_current_choreo():
+def get_choreo(num):
     try:
         conn, cursor = connection()
-        cursor.execute("SELECT group_name, song, start_time, end_time, link FROM choreo WHERE status = 7")
+        cursor.execute(f"SELECT group_name, song, start_time, end_time, link, status FROM choreo "
+                       f"{f'WHERE status = {num};' if num > 0 else ';'}")
         rows = cursor.fetchall()
         close(conn, cursor)
         return rows
